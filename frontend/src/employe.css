@@ -1,0 +1,112 @@
+/* ================= EMPLOYEE TABLE ================= */
+
+.employee-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.employee-table th {
+  background: #f7f8fb;
+  color: #53627e;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 13px 17px;
+  text-align: left;
+}
+
+.employee-table td {
+  padding: 13px 17px;
+  border-bottom: 1px solid #edf0f5;
+  font-size: 13px;
+}
+
+.employee-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.employee-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    #5869ed,
+    #7a4de8
+  );
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.employee-name strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.employee-name small {
+  display: block;
+  color: #7c8ba4;
+  font-size: 11px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #53627e;
+  font-size: 12px;
+}
+
+.department-badge {
+  background: #e9efff;
+  color: #4260d8;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-badge {
+  background: #dcf8eb;
+  color: #159768;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 7px;
+}
+
+.edit-btn {
+  background: #5263e9;
+  color: white;
+}
+
+.delete-btn {
+  background: #ffe1e7;
+  color: #ed3e59;
+}
+
+.table-footer {
+  padding: 17px;
+  color: #71809a;
+  font-size: 13px;
+}
