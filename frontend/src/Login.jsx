@@ -23,7 +23,7 @@ const LOCAL_USERS = [
     phone: "9999999999",
   },
   {
-    email: "rahul.sharma@ems.com",
+    email: "rahul@gmail.com",
     password: "employee123",
     role: "employee",
     name: "Rahul Sharma",
@@ -33,7 +33,7 @@ const LOCAL_USERS = [
     phone: "9876543210",
   },
   {
-    email: "priya.patel@ems.com",
+    email: "priya@gmail.com",
     password: "employee123",
     role: "employee",
     name: "Priya Patel",
@@ -60,7 +60,7 @@ export default function Login({ onLogin }) {
       setEmail("sppraseeman@gmail.com");
       setPassword("praseeman123");
     } else {
-      setEmail("rahul.sharma@ems.com");
+      setEmail("rahul@gmail.com");
       setPassword("employee123");
     }
   };
@@ -330,7 +330,7 @@ export default function Login({ onLogin }) {
               onClick={() =>
                 handleQuickDemo({
                   id: "2",
-                  email: "rahul.sharma@ems.com",
+                  email: "rahul@gmail.com",
                   role: "employee",
                   name: "Rahul Sharma",
                   department: "Engineering",
@@ -369,7 +369,7 @@ export default function Login({ onLogin }) {
               onClick={() =>
                 handleQuickDemo({
                   id: "3",
-                  email: "priya.patel@ems.com",
+                  email: "priya@gmail.com",
                   role: "employee",
                   name: "Priya Patel",
                   department: "Design",

@@ -138,6 +138,11 @@ function AdminDashboard({ user, onLogout }) {
   const [customDepartments, setCustomDepartments] = useState([]);
   const [newDeptName, setNewDeptName] = useState("");
 
+  // Advanced Filters State
+  const [showFilters, setShowFilters] = useState(false);
+  const [filterDept, setFilterDept] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("All");
+
   const userMenuRef = useRef(null);
 
   // 1. Fetch Employees
@@ -354,10 +359,22 @@ function AdminDashboard({ user, onLogout }) {
     alert(`Department "${newDeptName.trim()}" added successfully!`);
   };
 
-  // Search filter
-  const filteredEmployees = employees.filter((employee) =>
-    employee.name?.toLowerCase().includes(search.toLowerCase())
-  );
+  // Active filters count
+  const activeFiltersCount =
+    (filterDept !== "All" ? 1 : 0) + (filterStatus !== "All" ? 1 : 0);
+
+  // Search & Multi-criteria filter
+  const filteredEmployees = employees.filter((employee) => {
+    const matchesSearch =
+      employee.name?.toLowerCase().includes(search.toLowerCase()) ||
+      employee.email?.toLowerCase().includes(search.toLowerCase()) ||
+      employee.department?.toLowerCase().includes(search.toLowerCase()) ||
+      employee.phone?.includes(search);
+    const matchesDept = filterDept === "All" || employee.department === filterDept;
+    const matchesStatus =
+      filterStatus === "All" || (employee.status || "Active") === filterStatus;
+    return matchesSearch && matchesDept && matchesStatus;
+  });
 
   // Derived Dashboard Stats
   const totalEmployees = employees.length;
@@ -411,22 +428,150 @@ function AdminDashboard({ user, onLogout }) {
 
       <div className="employee-search">
         <div className="search-box">
-          <span>⌕</span>
+          <span className="search-icon-svg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
           <input
             type="text"
-            placeholder="Search employee by name..."
+            placeholder="Search employee by name, email, department..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          {search && (
+            <button
+              type="button"
+              className="clear-search-btn"
+              onClick={() => setSearch("")}
+              title="Clear search"
+            >
+              ✕
+            </button>
+          )}
         </div>
+
         <button
           type="button"
-          className="filter-btn"
-          onClick={() => setActivePage("Employees")}
+          className={`filter-btn ${showFilters ? "active" : ""}`}
+          onClick={() => setShowFilters(!showFilters)}
+          title="Toggle advanced filtering options"
         >
-          ⚙ View Advanced Filters
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="4" y1="21" x2="4" y2="14"></line>
+            <line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line>
+            <line x1="20" y1="12" x2="20" y2="3"></line>
+            <line x1="1" y1="14" x2="7" y2="14"></line>
+            <line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="17" y1="16" x2="23" y2="16"></line>
+          </svg>
+          <span>Advanced Filters</span>
+          {activeFiltersCount > 0 && (
+            <span className="filter-badge">{activeFiltersCount}</span>
+          )}
+          <span
+            className="filter-chevron"
+            style={{
+              transform: showFilters ? "rotate(180deg)" : "rotate(0deg)",
+              transition: "transform 0.2s ease",
+            }}
+          >
+            ▾
+          </span>
+        </button>
+
+        <button
+          type="button"
+          className="directory-shortcut-btn"
+          onClick={() => setActivePage("Employees")}
+          title="Open full employees directory with all controls"
+        >
+          <span>Full Directory</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
         </button>
       </div>
+
+      {showFilters && (
+        <div className="dashboard-filter-drawer">
+          <div className="filter-drawer-header">
+            <div className="filter-drawer-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+              </svg>
+              <span>Refine Directory by Department & Status</span>
+            </div>
+            {(filterDept !== "All" || filterStatus !== "All" || search) && (
+              <button
+                type="button"
+                className="reset-filters-btn"
+                onClick={() => {
+                  setFilterDept("All");
+                  setFilterStatus("All");
+                  setSearch("");
+                }}
+              >
+                Reset Filters ✕
+              </button>
+            )}
+          </div>
+
+          <div className="filter-drawer-grid">
+            <div className="filter-drawer-col">
+              <label>Department</label>
+              <select
+                value={filterDept}
+                onChange={(e) => setFilterDept(e.target.value)}
+              >
+                <option value="All">All Departments ({employees.length})</option>
+                {allDepartments.map((dept) => {
+                  const count = employees.filter((e) => e.department === dept).length;
+                  return (
+                    <option key={dept} value={dept}>
+                      {dept} ({count})
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <div className="filter-drawer-col">
+              <label>Employment Status</label>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option value="All">All Statuses</option>
+                <option value="Active">Active</option>
+                <option value="On Leave">On Leave</option>
+                <option value="Probation">Probation</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+
+            <div className="filter-drawer-col">
+              <label>Quick Action</label>
+              <button
+                type="button"
+                className="filter-full-directory-btn"
+                onClick={() => setActivePage("Employees")}
+              >
+                <span>Open Full Directory Page</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <EmployeeList
         employees={filteredEmployees}
