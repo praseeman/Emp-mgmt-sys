@@ -144,7 +144,19 @@ function EmployeeForm({
         <div className="emp-modal-header">
           <div className="emp-modal-header-left">
             <div className={`emp-modal-icon-badge ${editEmployee ? "edit-badge" : "add-badge"}`}>
-              {editEmployee ? "✏️" : "👤"}
+              {editEmployee ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <line x1="19" y1="8" x2="19" y2="14" />
+                  <line x1="22" y1="11" x2="16" y2="11" />
+                </svg>
+              )}
             </div>
             <div>
               <h2>{editEmployee ? "Edit Employee Profile" : "Add New Employee"}</h2>
@@ -162,7 +174,10 @@ function EmployeeForm({
             onClick={handleCancel}
             aria-label="Close modal"
           >
-            ✕
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
           </button>
         </div>
 
@@ -175,7 +190,12 @@ function EmployeeForm({
                 Full Name <span className="req-star">*</span>
               </label>
               <div className="emp-input-wrapper">
-                <span className="emp-input-icon">👤</span>
+                <span className="emp-input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
                 <input
                   type="text"
                   name="name"
@@ -193,7 +213,12 @@ function EmployeeForm({
                 Email Address <span className="req-star">*</span>
               </label>
               <div className="emp-input-wrapper">
-                <span className="emp-input-icon">✉️</span>
+                <span className="emp-input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                </span>
                 <input
                   type="email"
                   name="email"
@@ -213,7 +238,11 @@ function EmployeeForm({
                 Phone Number <span className="req-star">*</span>
               </label>
               <div className="emp-input-wrapper">
-                <span className="emp-input-icon">📞</span>
+                <span className="emp-input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
                 <input
                   type="tel"
                   name="phone"
@@ -230,7 +259,13 @@ function EmployeeForm({
                 Department <span className="req-star">*</span>
               </label>
               <div className="emp-input-wrapper">
-                <span className="emp-input-icon">🏢</span>
+                <span className="emp-input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="4" y="2" width="16" height="20" rx="2" />
+                    <path d="M9 22v-4h6v4" />
+                    <path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01" />
+                  </svg>
+                </span>
                 <select
                   name="department"
                   value={formData.department}
@@ -243,7 +278,11 @@ function EmployeeForm({
                     </option>
                   ))}
                 </select>
-                <span className="emp-select-caret">▾</span>
+                <span className="emp-select-caret">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </span>
               </div>
               {errors.department && (
                 <span className="emp-field-error">{errors.department}</span>
@@ -258,7 +297,12 @@ function EmployeeForm({
                 Designation / Role
               </label>
               <div className="emp-input-wrapper">
-                <span className="emp-input-icon">💼</span>
+                <span className="emp-input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                  </svg>
+                </span>
                 <input
                   type="text"
                   name="role"
@@ -274,7 +318,14 @@ function EmployeeForm({
                 Monthly Salary <span className="req-star">*</span>
               </label>
               <div className="emp-input-wrapper">
-                <span className="emp-input-icon emp-currency-icon">₹</span>
+                <span className="emp-input-icon emp-currency-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 3h12" />
+                    <path d="M6 8h12" />
+                    <path d="M6 13l8.5 8" />
+                    <path d="M6 13h3a4 4 0 0 0 0-8" />
+                  </svg>
+                </span>
                 <input
                   type="number"
                   name="salary"
@@ -318,7 +369,14 @@ function EmployeeForm({
           {/* FOOTER ACTIONS */}
           <div className="emp-modal-footer">
             <div className="emp-form-hint">
-              <span className="hint-icon">ℹ️</span> All fields with <span className="req-star">*</span> are required
+              <span className="hint-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+              </span>
+              <span>All fields with <span className="req-star">*</span> are required</span>
             </div>
 
             <div className="emp-modal-btns">

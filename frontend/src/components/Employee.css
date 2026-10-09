@@ -538,75 +538,114 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .emp-input-icon {
   position: absolute;
   left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: #94a3b8;
   font-size: 15px;
+  line-height: 1;
   pointer-events: none;
-  transition: color 0.2s ease;
-  z-index: 1;
+  transition: all 0.2s ease;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.emp-input-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 .emp-currency-icon {
   font-weight: 700;
   font-size: 16px;
-  color: #64748b;
+  color: #94a3b8;
+  line-height: 1;
 }
 
+.emp-modal-card .emp-input-wrapper input,
+.emp-modal-card .emp-input-wrapper select,
 .emp-input-wrapper input,
 .emp-input-wrapper select {
-  width: 100%;
-  height: 46px;
-  border-radius: 11px;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
-  padding: 0 14px 0 42px;
-  font-size: 13.5px;
-  color: #1e293b;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
-  font-family: inherit;
-  outline: none;
+  width: 100% !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  padding: 0 16px 0 46px !important;
+  font-size: 14px !important;
+  color: #1e293b !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+  outline: none !important;
+  line-height: normal !important;
 }
 
+.emp-modal-card .emp-input-wrapper select,
 .emp-input-wrapper select {
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  padding-right: 36px;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  padding-right: 38px !important;
 }
 
 .emp-select-caret {
   position: absolute;
   right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #94a3b8;
-  font-size: 13px;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+
+.emp-select-caret svg {
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .emp-input-wrapper input::placeholder {
   color: #94a3b8;
-  font-size: 13px;
+  font-size: 13.5px;
 }
 
 .emp-input-wrapper input:hover,
 .emp-input-wrapper select:hover {
-  border-color: #cbd5e1;
-  background: #ffffff;
+  border-color: #cbd5e1 !important;
+  background: #ffffff !important;
 }
 
 .emp-input-wrapper input:focus,
 .emp-input-wrapper select:focus {
-  border-color: #6366f1;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+  border-color: #4f46e5 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12) !important;
 }
 
 .emp-input-wrapper:focus-within .emp-input-icon {
-  color: #6366f1;
+  color: #4f46e5 !important;
+}
+
+.emp-input-wrapper:focus-within .emp-select-caret {
+  color: #4f46e5 !important;
 }
 
 /* ERROR STATE */
@@ -705,11 +744,19 @@
 }
 
 .emp-form-hint {
-  font-size: 12px;
-  color: #94a3b8;
+  font-size: 12.5px;
+  color: #64748b;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
+}
+
+.emp-form-hint .hint-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #4f46e5;
+  flex-shrink: 0;
 }
 
 .emp-modal-btns {

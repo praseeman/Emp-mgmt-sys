@@ -221,11 +221,26 @@ button {
 .help-box button {
   width: 100%;
   border: none;
-  border-radius: 7px;
+  border-radius: 9px;
   padding: 11px;
   color: white;
-  background: #5363ed;
-  font-size: 14px;
+  background: linear-gradient(135deg, #5363ed, #4252dc);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(83, 99, 237, 0.3);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.help-box button:hover {
+  background: linear-gradient(135deg, #4252dc, #3543c7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(83, 99, 237, 0.45);
+}
+
+.help-box button:active {
+  transform: translateY(0);
 }
 
 /* Sidebar footer */
