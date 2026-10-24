@@ -1,0 +1,500 @@
+/* ==================================================
+   ENTERPRISE FOOTER COMPONENT STYLING
+   Clean, Professional Corporate Software Design
+   ================================================== */
+
+.ems-footer {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+  margin-top: auto !important;
+  background: #0b1329;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+  position: relative;
+  font-family: inherit;
+  box-sizing: border-box !important;
+}
+
+/* ---------- Top Ticker & Control Bar ---------- */
+.ems-footer-ticker {
+  background: #070d1d;
+  border-bottom: 1px solid #1e293b;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ems-footer-ticker-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ems-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.ems-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.ems-ticker-divider {
+  color: #334155;
+}
+
+.ems-ticker-text {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.ems-footer-ticker-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ems-footer-btn-secondary,
+.ems-footer-btn-toggle {
+  background: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+
+.ems-footer-btn-secondary:hover,
+.ems-footer-btn-toggle:hover {
+  background: #334155;
+  color: #ffffff;
+}
+
+/* ---------- Main Footer Grid ---------- */
+.ems-footer-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 36px;
+  box-sizing: border-box;
+}
+
+.ems-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ems-footer-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ems-footer-logo-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+
+.ems-footer-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.01em;
+}
+
+.ems-footer-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+.ems-footer-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+.ems-footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.ems-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+}
+
+.ems-contact-row svg {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.ems-footer-heading {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #cbd5e1;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.ems-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ems-footer-links li button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 12.5px;
+  color: #94a3b8;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease;
+  font-family: inherit;
+}
+
+.ems-footer-links li button:hover {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+
+.ems-highlight-link {
+  color: #60a5fa !important;
+  font-weight: 500;
+}
+
+/* ---------- Session Card ---------- */
+.ems-session-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ems-session-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ems-session-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.ems-session-info strong {
+  display: block;
+  font-size: 12.5px;
+  color: #f1f5f9;
+}
+
+.ems-session-info small {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.ems-session-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  border-top: 1px solid #1e293b;
+  padding-top: 10px;
+}
+
+.ems-session-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ems-session-row span {
+  color: #64748b;
+}
+
+.ems-session-row strong {
+  color: #cbd5e1;
+}
+
+.ems-secure-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #34d399 !important;
+  font-size: 11px;
+}
+
+.ems-session-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.ems-session-btn {
+  flex: 1;
+  background: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.ems-session-btn:hover {
+  background: #334155;
+  color: #ffffff;
+}
+
+.ems-session-btn.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.ems-session-btn.primary:hover {
+  background: #1d4ed8;
+}
+
+/* ---------- Bottom Copyright Bar ---------- */
+.ems-footer-bottom {
+  border-top: 1px solid #1e293b;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ems-footer-bottom p {
+  margin: 0;
+}
+
+.ems-footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ems-footer-bottom-links button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 11.5px;
+  color: #64748b;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.15s ease;
+}
+
+.ems-footer-bottom-links button:hover {
+  color: #94a3b8;
+  text-decoration: underline;
+}
+
+/* ---------- Legal & Compliance Modal ---------- */
+.ems-legal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.ems-legal-modal {
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.ems-legal-modal-head {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ems-legal-modal-head h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.ems-legal-modal-head p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.ems-legal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.ems-legal-close-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.ems-legal-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ems-legal-section h3 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ems-legal-section p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.ems-legal-modal-foot {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ems-legal-confirm-btn {
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ems-legal-confirm-btn:hover {
+  background: #1e293b;
+}
+
+/* ---------- Responsive Breakpoints ---------- */
+@media (max-width: 1024px) {
+  .ems-footer-main {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ems-footer-main {
+    grid-template-columns: 1fr;
+    padding: 24px 16px;
+    gap: 24px;
+  }
+  .ems-footer-ticker {
+    padding: 8px 16px;
+  }
+  .ems-footer-bottom {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

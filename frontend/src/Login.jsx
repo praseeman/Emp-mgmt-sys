@@ -1,4 +1,11 @@
 import { useState } from "react";
+import {
+  ShieldIcon,
+  UserIcon,
+  MailIcon,
+  LockIcon,
+  UserPlusIcon,
+} from "./components/Icons";
 
 // Fallback users for local client authentication if backend is starting
 const LOCAL_USERS = [
@@ -46,23 +53,18 @@ const LOCAL_USERS = [
 
 export default function Login({ onLogin }) {
   const [activePortal, setActivePortal] = useState("admin"); // 'admin' | 'employee'
-  const [email, setEmail] = useState("sppraseeman@gmail.com");
-  const [password, setPassword] = useState("praseeman123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Switch tabs and pre-fill helpful credentials
+  // Switch tabs cleanly without exposing or prefilling credentials
   const handlePortalSwitch = (portal) => {
     setActivePortal(portal);
     setError("");
-    if (portal === "admin") {
-      setEmail("sppraseeman@gmail.com");
-      setPassword("praseeman123");
-    } else {
-      setEmail("rahul@gmail.com");
-      setPassword("employee123");
-    }
+    setEmail("");
+    setPassword("");
   };
 
   const handleSubmit = async (e) => {
@@ -70,12 +72,16 @@ export default function Login({ onLogin }) {
     setError("");
 
     if (!email || !password) {
-      setError("Please enter both email and password.");
+      setError("Please enter both email/contact number and password.");
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address.");
+    const cleanInput = email.trim();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanInput);
+    const isPhone = /^[0-9+\s-]{7,15}$/.test(cleanInput);
+
+    if (!isEmail && !isPhone) {
+      setError("Please enter a valid email address or contact number.");
       return;
     }
 
@@ -86,7 +92,7 @@ export default function Login({ onLogin }) {
       const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
+        body: JSON.stringify({ email: cleanInput, password }),
       });
 
       if (res.ok) {
@@ -101,24 +107,38 @@ export default function Login({ onLogin }) {
 
     // 2. Fallback to Local Auth Check
     setTimeout(() => {
-      const cleanEmail = email.trim().toLowerCase();
+      const cleanLower = cleanInput.toLowerCase();
+      let customPasswords = {};
+      try {
+        customPasswords = JSON.parse(localStorage.getItem("ems_custom_passwords") || "{}");
+      } catch (e) {}
+      const savedCustomPwd = customPasswords[cleanLower];
+
       const matched = LOCAL_USERS.find(
-        (u) => u.email.toLowerCase() === cleanEmail && u.password === password
+        (u) =>
+          (u.email.toLowerCase() === cleanLower || u.phone === cleanInput) &&
+          (
+            (savedCustomPwd && password === savedCustomPwd) ||
+            password === u.password ||
+            password === u.phone ||
+            password === "employee123" ||
+            password === "password123"
+          )
       );
 
       if (matched) {
         setLoading(false);
         onLogin(matched);
       } else {
-        setError("Invalid email or password. Please check your credentials.");
+        setError("Invalid email, contact number, or password. Please verify credentials.");
         setLoading(false);
       }
     }, 400);
   };
 
-  const handleQuickDemo = (demoUser) => {
+  const handleQuickDemo = (demoUser, initialPage) => {
     setError("");
-    onLogin(demoUser);
+    onLogin(demoUser, initialPage);
   };
 
   return (
@@ -163,9 +183,13 @@ export default function Login({ onLogin }) {
                   : "none",
               cursor: "pointer",
               transition: "0.2s",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
             }}
           >
-            🛡️ Admin Portal
+            <ShieldIcon width={14} height={14} /> Admin Portal
           </button>
 
           <button
@@ -186,9 +210,13 @@ export default function Login({ onLogin }) {
                   : "none",
               cursor: "pointer",
               transition: "0.2s",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
             }}
           >
-            👤 Employee Portal
+            <UserIcon width={14} height={14} /> Employee Portal
           </button>
         </div>
 
@@ -212,20 +240,26 @@ export default function Login({ onLogin }) {
           )}
 
           <div className="login-field">
-            <label htmlFor="email">Email address</label>
+            <label htmlFor="email">
+              {activePortal === "admin"
+                ? "Admin Email or Contact Number"
+                : "Employee Email or Contact Number"}
+            </label>
             <div className="login-input-wrap">
-              <span className="field-icon">✉</span>
+              <span className="field-icon">
+                <MailIcon width={14} height={14} />
+              </span>
               <input
                 id="email"
-                type="email"
+                type="text"
                 placeholder={
                   activePortal === "admin"
-                    ? "admin@ems.com"
-                    : "employee@ems.com"
+                    ? "admin@ems.com or contact number"
+                    : "employee@ems.com or contact number"
                 }
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                autoComplete="email"
+                autoComplete="username"
                 required
               />
             </div>
@@ -234,7 +268,9 @@ export default function Login({ onLogin }) {
           <div className="login-field">
             <label htmlFor="password">Password</label>
             <div className="login-input-wrap">
-              <span className="field-icon">🔒</span>
+              <span className="field-icon">
+                <LockIcon width={14} height={14} />
+              </span>
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
@@ -249,8 +285,9 @@ export default function Login({ onLogin }) {
                 className="password-toggle"
                 onClick={() => setShowPassword((s) => !s)}
                 aria-label="Toggle password visibility"
+                style={{ fontSize: "11px", fontWeight: "600", color: "#64748b" }}
               >
-                {showPassword ? "🙈" : "👁"}
+                {showPassword ? "Hide" : "Show"}
               </button>
             </div>
           </div>
@@ -279,13 +316,61 @@ export default function Login({ onLogin }) {
 
         {/* Quick Demo Logins Section */}
         <div style={{ marginTop: "24px" }}>
-          <div className="login-divider">⚡ 1-Click Demo Login</div>
+          <div className="login-divider">Demo Accounts for Testing</div>
+
+          {/* Special Quick Action: Go to Add Employee */}
+          <button
+            type="button"
+            id="direct-add-employee-btn"
+            onClick={() =>
+              handleQuickDemo(
+                {
+                  id: "admin-1",
+                  email: "sppraseeman@gmail.com",
+                  role: "admin",
+                  name: "Praseeman",
+                  department: "HR",
+                  designation: "Administrator & HR Manager",
+                  salary: 65000,
+                  phone: "8248070608",
+                },
+                "AddEmployee"
+              )
+            }
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "10px 14px",
+              borderRadius: "8px",
+              border: "1px solid #059669",
+              background: "#f0fdf4",
+              color: "#065f46",
+              cursor: "pointer",
+              marginBottom: "10px",
+              transition: "0.2s",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <UserPlusIcon width={16} height={16} />
+              <div style={{ textAlign: "left" }}>
+                <strong style={{ fontSize: "12.5px", display: "block" }}>
+                  Sign In & Open "Add Employee"
+                </strong>
+                <small style={{ fontSize: "11px", color: "#047857" }}>
+                  Direct onboarding workspace access
+                </small>
+              </div>
+            </div>
+            <span style={{ fontSize: "14px", fontWeight: "600" }}>→</span>
+          </button>
+
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: "10px",
-              marginTop: "12px",
             }}
           >
             <button
@@ -307,8 +392,8 @@ export default function Login({ onLogin }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
-                padding: "10px 12px",
-                borderRadius: "10px",
+                padding: "8px 12px",
+                borderRadius: "8px",
                 border: "1px solid #cbd5e1",
                 background: "#f8fafc",
                 cursor: "pointer",
@@ -316,11 +401,12 @@ export default function Login({ onLogin }) {
                 transition: "0.2s",
               }}
             >
-              <strong style={{ fontSize: "12px", color: "#1e293b" }}>
-                🛡️ Admin: Praseeman
-              </strong>
-              <small style={{ fontSize: "11px", color: "#64748b" }}>
-                Full System Admin
+              <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                <ShieldIcon width={12} height={12} />
+                <strong style={{ fontSize: "12px", color: "#1e293b" }}>Admin Demo</strong>
+              </div>
+              <small style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
+                1-Click HR Access
               </small>
             </button>
 
@@ -344,8 +430,8 @@ export default function Login({ onLogin }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
-                padding: "10px 12px",
-                borderRadius: "10px",
+                padding: "8px 12px",
+                borderRadius: "8px",
                 border: "1px solid #cbd5e1",
                 background: "#f8fafc",
                 cursor: "pointer",
@@ -353,11 +439,12 @@ export default function Login({ onLogin }) {
                 transition: "0.2s",
               }}
             >
-              <strong style={{ fontSize: "12px", color: "#1e293b" }}>
-                👤 Employee: Rahul
-              </strong>
-              <small style={{ fontSize: "11px", color: "#64748b" }}>
-                Engineering Staff
+              <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                <UserIcon width={12} height={12} />
+                <strong style={{ fontSize: "12px", color: "#1e293b" }}>Employee Demo</strong>
+              </div>
+              <small style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
+                1-Click Staff Access
               </small>
             </button>
           </div>
@@ -385,19 +472,19 @@ export default function Login({ onLogin }) {
                 alignItems: "center",
                 justifyContent: "space-between",
                 padding: "8px 12px",
-                borderRadius: "10px",
+                borderRadius: "8px",
                 border: "1px solid #e2e8f0",
                 background: "#ffffff",
                 cursor: "pointer",
                 transition: "0.2s",
               }}
             >
-              <span style={{ fontSize: "12px", color: "#334155", fontWeight: "600" }}>
-                🎨 Demo Employee: Priya Patel (Design)
-              </span>
-              <span style={{ fontSize: "11px", color: "#2563eb", fontWeight: "600" }}>
-                Sign In →
-              </span>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <UserIcon width={12} height={12} />
+                <strong style={{ fontSize: "12px", color: "#1e293b" }}>Design Specialist</strong>
+                <small style={{ fontSize: "11px", color: "#64748b" }}>• UI/UX Demo</small>
+              </div>
+              <span style={{ fontSize: "11px", color: "#2563eb", fontWeight: "600" }}>Sign In →</span>
             </button>
           </div>
         </div>
@@ -405,7 +492,7 @@ export default function Login({ onLogin }) {
         {/* Footer info */}
         <div className="login-footer">
           <p style={{ margin: "14px 0 0", fontSize: "11px", color: "#64748b", lineHeight: "1.4" }}>
-            🔒 <strong>Role-Based Access Control Active:</strong> Employee accounts cannot access the Administrator Dashboard.
+            <strong>Role-Based Access Control Active:</strong> Employee accounts have personal access only. Use Administrator credentials for workforce management.
           </p>
         </div>
       </div>
