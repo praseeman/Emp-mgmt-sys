@@ -1,0 +1,346 @@
+/* ==================================================
+   SMART CLOCK & CALENDAR WIDGET
+   Executive Luxury Digital Clock & Real-Time Date Pill
+================================================== */
+
+.smart-clock-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95));
+  border: 1px solid #e2e8f0;
+  border-radius: 40px;
+  padding: 4px 10px 4px 6px;
+  height: 36px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* Hide year, seconds, live badge, and timezone tag by default to keep the navbar sleek and fit */
+.smart-date-year,
+.smart-live-indicator,
+.smart-seconds-pill,
+.smart-tz-tag {
+  display: none !important;
+}
+
+.smart-clock-widget:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.smart-clock-widget:active {
+  transform: translateY(0);
+}
+
+/* ---------- Theme Accents ---------- */
+.smart-clock-widget.theme-employee:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.18);
+}
+
+.smart-clock-widget.theme-admin:hover {
+  border-color: #6366f1;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.18);
+}
+
+.smart-clock-widget.theme-dark {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.smart-clock-widget.theme-dark:hover {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.3);
+}
+
+/* ---------- Calendar Left Section ---------- */
+.smart-clock-date-sec {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.smart-calendar-icon-box {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.smart-clock-widget:hover .smart-calendar-icon-box {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.theme-admin .smart-calendar-icon-box {
+  background: #f5f3ff;
+  color: #6366f1;
+  border-color: #ede9fe;
+}
+
+.theme-dark .smart-calendar-icon-box {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.smart-date-text-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 13px;
+  color: #334155;
+}
+
+.theme-dark .smart-date-text-wrap {
+  color: #e2e8f0;
+}
+
+.smart-weekday-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #2563eb;
+  background: #eff6ff;
+  padding: 2px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.4px;
+}
+
+.theme-admin .smart-weekday-tag {
+  color: #6366f1;
+  background: #f5f3ff;
+}
+
+.theme-dark .smart-weekday-tag {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.smart-date-main {
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+}
+
+.theme-dark .smart-date-main {
+  color: #ffffff;
+}
+
+.smart-date-year {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.theme-dark .smart-date-year {
+  color: #94a3b8;
+}
+
+/* ---------- Vertical Glowing Divider ---------- */
+.smart-clock-divider {
+  width: 1px;
+  height: 18px;
+  background: linear-gradient(180deg, transparent, #cbd5e1, transparent);
+  flex-shrink: 0;
+}
+
+.theme-dark .smart-clock-divider {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+}
+
+/* ---------- Time Right Section ---------- */
+.smart-clock-time-sec {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Live Pulse Dot */
+.smart-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-size: 9px;
+  font-weight: 800;
+  color: #059669;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.theme-dark .smart-live-indicator {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.smart-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10b981;
+  animation: clockLivePulse 1.8s infinite;
+}
+
+@keyframes clockLivePulse {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.2); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Digital Time Numerals */
+.smart-time-display {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.theme-dark .smart-time-display {
+  color: #ffffff;
+}
+
+.smart-time-colon {
+  color: #3b82f6;
+  font-weight: 700;
+  animation: colonBlink 1s infinite steps(1, start);
+  margin: 0 1px;
+}
+
+.theme-admin .smart-time-colon {
+  color: #6366f1;
+}
+
+.theme-dark .smart-time-colon {
+  color: #60a5fa;
+}
+
+@keyframes colonBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* Seconds Pill */
+.smart-seconds-pill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #2563eb;
+  padding: 1px 5px;
+  border-radius: 5px;
+  letter-spacing: 0.2px;
+  margin-left: 2px;
+}
+
+.theme-admin .smart-seconds-pill {
+  color: #6366f1;
+  background: #f5f3ff;
+  border-color: #ede9fe;
+}
+
+.theme-dark .smart-seconds-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #93c5fd;
+}
+
+/* AM/PM Tag */
+.smart-ampm-tag {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 2px 5px;
+  border-radius: 5px;
+  letter-spacing: 0.5px;
+  margin-left: 4px;
+}
+
+.theme-dark .smart-ampm-tag {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+/* Timezone Mini Tag */
+.smart-tz-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  margin-left: 2px;
+}
+
+/* Hover Tooltip / Interactive Hint */
+.smart-clock-tooltip {
+  position: absolute;
+  bottom: -32px;
+  right: 0;
+  background: #0f172a;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+.smart-clock-widget:hover .smart-clock-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Print Overrides */
+@media print {
+  .smart-clock-widget {
+    background: transparent !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    padding: 4px 10px !important;
+    color: #0f172a !important;
+  }
+
+  .smart-clock-tooltip,
+  .smart-live-indicator,
+  .smart-time-colon {
+    animation: none !important;
+  }
+}

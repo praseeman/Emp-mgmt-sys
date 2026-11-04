@@ -4,24 +4,46 @@
 
 .emp-dashboard-app {
   min-height: 100vh;
-  background: #f4f6fb;
+  background: var(--theme-body-bg, #f4f6fb);
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.emp-app-layout {
+  display: flex;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 100vw;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* ---------- Sidebar ---------- */
 .emp-sidebar {
   position: fixed;
-  left: 0;
   top: 0;
+  left: 0;
+  bottom: 0;
   width: 280px;
+  min-width: 280px;
   height: 100vh;
+  max-height: 100vh;
+  flex-shrink: 0;
   background: #0f172a;
   color: #ffffff;
   padding: 24px 18px;
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 95;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  box-sizing: border-box;
 }
 
 .emp-sidebar .logo-section {
@@ -122,9 +144,64 @@
   box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
 }
 
+/* Help Box in Sidebar */
+.emp-help-box {
+  margin-top: auto;
+  margin-bottom: 14px;
+  padding: 18px 14px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.emp-help-box .emp-help-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.emp-help-box h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.emp-help-box p {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+.emp-help-box button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 12px;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.emp-help-box button:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+}
+
+.emp-help-box button:active {
+  transform: translateY(0);
+}
+
 /* User Card in Sidebar */
 .emp-sidebar-user {
-  margin-top: auto;
+  margin-top: 0;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
@@ -193,31 +270,48 @@
 
 /* ---------- Main Content Area ---------- */
 .emp-main {
-  margin-left: 280px;
-  flex: 1;
+  flex: 1 1 0%;
+  min-width: 0;
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  max-width: calc(100vw - 260px);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Topbar */
 .emp-topbar {
-  background: #ffffff;
-  height: 72px;
-  padding: 0 32px;
+  background: var(--theme-topbar-bg, #ffffff);
+  min-height: 64px;
+  height: 64px;
+  padding: 0 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #e2e8f0;
+  gap: 16px;
+  border-bottom: 1px solid var(--theme-card-border, #e2e8f0);
   position: sticky;
   top: 0;
   z-index: 90;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .emp-topbar-left {
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.emp-topbar-greeting {
+  min-width: 0;
 }
 
 .emp-topbar-greeting h2 {
@@ -225,12 +319,26 @@
   font-weight: 700;
   color: #0f172a;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .emp-topbar-greeting p {
   font-size: 12px;
   color: #64748b;
-  margin: 0;
+  margin: 2px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emp-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  min-width: 0;
 }
 
 .emp-live-clock {
@@ -244,6 +352,8 @@
   font-size: 13px;
   font-weight: 600;
   color: #334155;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .emp-live-clock .clock-dot {
@@ -252,17 +362,12 @@
   background: #10b981;
   border-radius: 50%;
   animation: pulseDot 2s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes pulseDot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.emp-topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
 }
 
 .emp-role-tag {
@@ -273,17 +378,21 @@
   font-weight: 600;
   padding: 5px 12px;
   border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .emp-user-menu-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  padding: 6px 12px 6px 6px;
+  padding: 5px 12px 5px 8px;
   border-radius: 30px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   position: relative;
 }
 
@@ -367,7 +476,7 @@
 /* Page Body Container */
 .emp-content {
   padding: 30px 32px;
-  flex: 1;
+  flex: 1 0 auto;
 }
 
 /* Hero / Welcome Banner */
@@ -1205,5 +1314,1059 @@
   }
   .emp-salary-overview {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==================================================
+   SETTINGS & PREFERENCES SECTION STYLES
+   ================================================== */
+
+.emp-settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: empFadeSlideIn 0.35s ease-out;
+}
+
+@keyframes empFadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Settings Hero Banner ---------- */
+.emp-settings-header-banner {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 26px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.emp-settings-header-banner::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.emp-settings-header-info {
+  max-width: 680px;
+  position: relative;
+  z-index: 1;
+}
+
+.emp-settings-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  color: #93c5fd;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+.emp-settings-header-info h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.emp-settings-header-info p {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.emp-settings-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.emp-settings-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  font-family: inherit;
+}
+
+.emp-settings-btn-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+}
+
+.emp-settings-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.emp-settings-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ---------- Toast Notification (Fixed Viewport Floating) ---------- */
+.emp-settings-toast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.28);
+  animation: empSlideToast 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+
+@keyframes empSlideToast {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.emp-settings-toast.success {
+  background: #065f46;
+  border: 1px solid #10b981;
+  color: #ffffff;
+}
+
+.emp-settings-toast.error {
+  background: #991b1b;
+  border: 1px solid #ef4444;
+  color: #ffffff;
+}
+
+.emp-settings-toast .toast-icon {
+  font-weight: 800;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.emp-settings-btn-primary.saved {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.45) !important;
+}
+
+.emp-primary-btn.saved-success-btn {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.45) !important;
+}
+
+/* High Contrast Mode */
+.emp-high-contrast .emp-settings-card,
+.emp-high-contrast .emp-card,
+.emp-high-contrast .emp-checkin-card,
+.emp-high-contrast .emp-stat-card {
+  border: 2px solid #475569 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
+}
+
+.emp-high-contrast .emp-settings-card-head {
+  background: #f1f5f9 !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+}
+
+/* Compact Table Density */
+.emp-compact-view .emp-table td,
+.emp-compact-view .emp-table th {
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+}
+
+/* ---------- Category Bar ---------- */
+.emp-settings-category-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--theme-card-bg, #ffffff);
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid var(--theme-card-border, #e2e8f0);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  overflow-x: auto;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+.emp-settings-category-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.emp-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--theme-text-muted, #64748b);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.emp-category-pill:hover {
+  background: var(--theme-badge-bg, #f1f5f9);
+  color: var(--theme-text-primary, #1e293b);
+}
+
+.emp-category-pill.active {
+  background: var(--theme-primary-gradient, #2563eb) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px var(--theme-accent-glow, rgba(37, 99, 235, 0.3));
+}
+
+/* ---------- Settings Grid & Cards ---------- */
+.emp-settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emp-settings-card {
+  background: var(--theme-card-bg, #ffffff);
+  border-radius: 16px;
+  border: 1px solid var(--theme-card-border, #e2e8f0);
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.emp-settings-card:hover {
+  border-color: var(--theme-accent, #cbd5e1);
+}
+
+.emp-settings-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  background: var(--theme-badge-bg, #fafbfd);
+  border-bottom: 1px solid var(--theme-card-border, #f1f5f9);
+}
+
+.emp-settings-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.emp-settings-icon-wrap.lock {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #dbeafe;
+}
+
+.emp-settings-icon-wrap.bell {
+  background: #fef3c7;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.emp-settings-icon-wrap.palette {
+  background: #f3e8ff;
+  color: #9333ea;
+  border: 1px solid #e9d5ff;
+}
+
+.emp-settings-icon-wrap.bank {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.emp-settings-icon-wrap.shield {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+}
+
+.emp-settings-card-head h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--theme-text-primary, #0f172a);
+  margin: 0 0 3px 0;
+}
+
+.emp-settings-card-head p {
+  font-size: 13px;
+  color: var(--theme-text-muted, #64748b);
+  margin: 0;
+}
+
+.emp-settings-card-body {
+  padding: 24px;
+}
+
+/* ---------- Forms & Inputs in Settings ---------- */
+.emp-password-alert {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emp-password-alert.success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.emp-password-alert.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.emp-password-form {
+  max-width: 680px;
+}
+
+.emp-password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.emp-password-input-wrap input {
+  width: 100%;
+  padding: 10px 42px 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  background: #ffffff;
+}
+
+.emp-password-input-wrap input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.emp-pwd-toggle-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emp-password-meter {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+
+.emp-meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  margin-bottom: 8px;
+  color: #475569;
+}
+
+.emp-meter-track {
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.emp-meter-bar {
+  height: 100%;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+}
+
+.emp-pwd-req-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.emp-pwd-req-list span.met {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.emp-password-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 18px;
+}
+
+.emp-save-btn {
+  padding: 10px 20px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.emp-save-btn:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+/* ---------- Settings Dividers ---------- */
+.emp-settings-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 22px 0;
+}
+
+/* ---------- Toggle Switch Rows ---------- */
+.emp-setting-row-toggle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.emp-setting-row-toggle:last-child {
+  border-bottom: none;
+}
+
+.emp-toggle-info {
+  flex: 1;
+}
+
+.emp-toggle-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.emp-toggle-info h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.emp-toggle-info p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 3px 0 0 0;
+  line-height: 1.45;
+}
+
+.emp-tag-rec {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.emp-status-chip {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.emp-status-chip.verified {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+/* iOS-Style Toggle Switch */
+.emp-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.emp-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.emp-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cbd5e1;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 34px;
+}
+
+.emp-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.emp-switch input:checked + .emp-slider {
+  background-color: #2563eb;
+}
+
+.emp-switch input:focus + .emp-slider {
+  box-shadow: 0 0 1px #2563eb;
+}
+
+.emp-switch input:checked + .emp-slider:before {
+  transform: translateX(22px);
+}
+
+/* ---------- Active Sessions Section ---------- */
+.emp-sessions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.emp-sessions-header h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+}
+
+.emp-sessions-header p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.emp-terminate-btn {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.emp-terminate-btn:hover {
+  background: #fecaca;
+  color: #b91c1c;
+}
+
+.emp-sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.emp-session-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.emp-session-item .session-icon {
+  font-size: 20px;
+}
+
+.emp-session-item .session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.emp-session-item .session-info strong {
+  font-size: 13.5px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.emp-session-item .current-badge {
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.emp-session-item .session-info small {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.text-success {
+  color: #16a34a !important;
+  font-weight: 600;
+}
+
+/* ---------- Field Rows (Selects, Radio Pills) ---------- */
+.emp-setting-field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.emp-setting-field-row:last-child {
+  border-bottom: none;
+}
+
+.emp-setting-field-row .field-desc h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 3px 0;
+}
+
+.emp-setting-field-row .field-desc p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.emp-radio-pills {
+  display: flex;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.emp-pill-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.emp-pill-btn.active {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+.emp-settings-select {
+  padding: 9px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  min-width: 220px;
+}
+
+.emp-settings-select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ---------- Bank & Payroll Details Box ---------- */
+.emp-bank-verified-box {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.emp-bank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.bank-logo-badge {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.bank-verified-pill {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.emp-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.bank-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bank-item span {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.bank-item strong {
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.emp-bank-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #1e40af;
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+.emp-bank-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* ---------- Privacy & Data Export Box ---------- */
+.emp-data-export-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.emp-data-export-box .export-text h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.emp-data-export-box .export-text p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.45;
+}
+
+.emp-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.emp-download-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.emp-compliance-footer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.compliance-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.compliance-item strong {
+  color: #1e293b;
+}
+
+/* ---------- Settings Bottom Bar ---------- */
+.emp-settings-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.emp-reset-defaults-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-family: inherit;
+}
+
+.emp-reset-defaults-btn:hover {
+  color: #dc2626;
+  text-decoration: underline;
+}
+
+.emp-bottom-right-btns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Modal notice banner */
+.emp-modal-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #166534;
+  margin-bottom: 18px;
+  line-height: 1.45;
+}
+
+/* Responsive tweaks for settings */
+@media (max-width: 900px) {
+  .emp-settings-header-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .emp-settings-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .emp-bank-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .emp-data-export-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .emp-bank-grid {
+    grid-template-columns: 1fr;
+  }
+  .emp-setting-field-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .emp-settings-select {
+    width: 100%;
+  }
+}
+
+/* Floating footer toggle button */
+.floating-footer-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  z-index: 950;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #0f172a;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.floating-footer-toggle-btn:hover {
+  background: #1e293b;
+  border-color: #475569;
+  color: #ffffff;
+}
+
+.floating-footer-toggle-btn.active {
+  background: #1e293b;
+  border-color: #3b82f6;
+  color: #60a5fa;
+}
+
+@media (max-width: 640px) {
+  .floating-footer-toggle-btn {
+    bottom: 16px;
+    right: 16px;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 11.5px;
   }
 }

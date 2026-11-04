@@ -1,4 +1,13 @@
 import React, { useState, useMemo } from "react";
+import {
+  UsersIcon,
+  BuildingIcon,
+  CheckCircleIcon,
+  CreditCardIcon,
+  MailIcon,
+  PhoneIcon,
+  SearchIcon,
+} from "../components/Icons";
 import "./EmployeesPage.css";
 
 const DEPARTMENTS = [
@@ -100,7 +109,7 @@ export default function EmployeesPage({
     ];
 
     const rows = filteredEmployees.map((e) => [
-      `EMP-${e._id?.slice(-3).toUpperCase() || "N/A"}`,
+      `EMP-${String(e._id || "").slice(-3).toUpperCase() || "N/A"}`,
       `"${e.name || ""}"`,
       `"${e.email || ""}"`,
       `"${e.phone || ""}"`,
@@ -144,7 +153,9 @@ export default function EmployeesPage({
       {/* PAGE HEADER */}
       <div className="emp-page-header">
         <div className="emp-header-left">
-          <div className="emp-header-badge">👥</div>
+          <div className="emp-header-badge">
+            <UsersIcon width={18} height={18} />
+          </div>
           <div>
             <h1>Employee Directory</h1>
             <p>
@@ -160,7 +171,7 @@ export default function EmployeesPage({
             onClick={handleExportCSV}
             title="Download CSV file of current employee list"
           >
-            <span>📥</span> Export CSV
+            Export CSV
           </button>
 
           <button
@@ -168,7 +179,7 @@ export default function EmployeesPage({
             className="emp-add-primary-btn"
             onClick={onOpenAddForm}
           >
-            <span>+</span> Add Employee
+            + Add Employee
           </button>
         </div>
       </div>
@@ -176,7 +187,9 @@ export default function EmployeesPage({
       {/* QUICK STATS CARDS */}
       <div className="emp-metrics-grid">
         <div className="metric-box blue">
-          <div className="metric-icon">👥</div>
+          <div className="metric-icon">
+            <UsersIcon width={18} height={18} />
+          </div>
           <div>
             <span className="metric-label">Total Workforce</span>
             <h3 className="metric-value">{totalCount}</h3>
@@ -185,7 +198,9 @@ export default function EmployeesPage({
         </div>
 
         <div className="metric-box green">
-          <div className="metric-icon">✓</div>
+          <div className="metric-icon">
+            <CheckCircleIcon width={18} height={18} />
+          </div>
           <div>
             <span className="metric-label">Active Members</span>
             <h3 className="metric-value">{activeCount}</h3>
@@ -198,7 +213,9 @@ export default function EmployeesPage({
         </div>
 
         <div className="metric-box purple">
-          <div className="metric-icon">🏢</div>
+          <div className="metric-icon">
+            <BuildingIcon width={18} height={18} />
+          </div>
           <div>
             <span className="metric-label">Departments</span>
             <h3 className="metric-value">{uniqueDepts}</h3>
@@ -207,7 +224,9 @@ export default function EmployeesPage({
         </div>
 
         <div className="metric-box orange">
-          <div className="metric-icon">₹</div>
+          <div className="metric-icon">
+            <CreditCardIcon width={18} height={18} />
+          </div>
           <div>
             <span className="metric-label">Monthly Payroll</span>
             <h3 className="metric-value">
@@ -307,7 +326,7 @@ export default function EmployeesPage({
               onClick={() => setViewMode("table")}
               title="Table View"
             >
-              📋 Table
+              Table
             </button>
             <button
               type="button"
@@ -315,7 +334,7 @@ export default function EmployeesPage({
               onClick={() => setViewMode("grid")}
               title="Card Grid View"
             >
-              🪪 Grid
+              Grid
             </button>
           </div>
         </div>
@@ -332,7 +351,9 @@ export default function EmployeesPage({
       {/* MAIN CONTENT AREA */}
       {filteredEmployees.length === 0 ? (
         <div className="emp-empty-state">
-          <div className="emp-empty-icon">👥</div>
+          <div className="emp-empty-icon">
+            <UsersIcon width={28} height={28} />
+          </div>
           <h3>No Employees Found</h3>
           <p>
             {hasActiveFilters
@@ -394,7 +415,7 @@ export default function EmployeesPage({
                               {emp.name}
                             </strong>
                             <span className="emp-cell-id">
-                              EMP-{emp._id?.slice(-3).toUpperCase() || "N/A"}
+                              EMP-{String(emp._id || "").slice(-3).toUpperCase() || "N/A"}
                             </span>
                           </div>
                         </div>
@@ -415,8 +436,12 @@ export default function EmployeesPage({
                       {/* Contact */}
                       <td>
                         <div className="emp-contact-cell">
-                          <span>✉️ {emp.email}</span>
-                          <span>📞 {emp.phone || "N/A"}</span>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                            <MailIcon width={12} height={12} /> {emp.email}
+                          </span>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                            <PhoneIcon width={12} height={12} /> {emp.phone || "N/A"}
+                          </span>
                         </div>
                       </td>
 
@@ -444,7 +469,10 @@ export default function EmployeesPage({
                             onClick={() => setViewEmployee(emp)}
                             title="View Profile Details"
                           >
-                            👁️
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                              <circle cx="12" cy="12" r="3"/>
+                            </svg>
                           </button>
                           <button
                             type="button"
@@ -452,7 +480,10 @@ export default function EmployeesPage({
                             onClick={() => onEditEmployee(emp)}
                             title="Edit Employee"
                           >
-                            ✏️
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                              <path d="m15 5 4 4"/>
+                            </svg>
                           </button>
                           <button
                             type="button"
@@ -460,7 +491,11 @@ export default function EmployeesPage({
                             onClick={() => onDeleteEmployee(emp._id)}
                             title="Delete Employee"
                           >
-                            🗑️
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M3 6h18"/>
+                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                            </svg>
                           </button>
                         </div>
                       </td>
@@ -498,12 +533,12 @@ export default function EmployeesPage({
                   <span className="emp-dept-pill">{emp.department}</span>
 
                   <div className="emp-card-contact-box">
-                    <div>
-                      <span>✉️</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <MailIcon width={12} height={12} />
                       <small>{emp.email}</small>
                     </div>
-                    <div>
-                      <span>📞</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                      <PhoneIcon width={12} height={12} />
                       <small>{emp.phone || "N/A"}</small>
                     </div>
                   </div>
@@ -573,7 +608,7 @@ export default function EmployeesPage({
                   {viewEmployee.role || "Staff"}
                 </span>
                 <span className="emp-view-id">
-                  Employee ID: EMP-{viewEmployee._id?.slice(-3).toUpperCase()}
+                  Employee ID: EMP-{String(viewEmployee._id || "").slice(-3).toUpperCase() || "N/A"}
                 </span>
               </div>
 
@@ -634,7 +669,7 @@ export default function EmployeesPage({
                   onEditEmployee(emp);
                 }}
               >
-                ✏️ Edit Record
+                Edit Record
               </button>
               <button
                 type="button"

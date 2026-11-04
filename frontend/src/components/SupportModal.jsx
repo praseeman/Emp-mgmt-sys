@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import "./SupportModal.css";
+import {
+  HelpCircleIcon,
+  MailIcon,
+  PhoneIcon,
+  SearchIcon,
+  BuildingIcon,
+  InfoIcon,
+  ShieldIcon,
+} from "./Icons";
 
 const FAQS = [
   {
@@ -104,7 +113,9 @@ export default function SupportModal({ isOpen, onClose, user }) {
         {/* HEADER */}
         <div className="support-modal-header">
           <div className="support-header-left">
-            <div className="support-icon-badge">💡</div>
+            <div className="support-icon-badge">
+              <HelpCircleIcon width={22} height={22} />
+            </div>
             <div>
               <h2>Help & Support Center</h2>
               <p>Get instant answers, submit a ticket, or reach our support team</p>
@@ -128,21 +139,24 @@ export default function SupportModal({ isOpen, onClose, user }) {
             className={`support-tab-btn ${activeTab === "faqs" ? "active" : ""}`}
             onClick={() => setActiveTab("faqs")}
           >
-            <span>❓</span> FAQs & Guides
+            <HelpCircleIcon width={14} height={14} style={{ marginRight: 6, display: "inline-block", verticalAlign: "middle" }} />
+            FAQs & Guides
           </button>
           <button
             type="button"
             className={`support-tab-btn ${activeTab === "ticket" ? "active" : ""}`}
             onClick={() => setActiveTab("ticket")}
           >
-            <span>✉️</span> Submit a Ticket
+            <MailIcon width={14} height={14} style={{ marginRight: 6, display: "inline-block", verticalAlign: "middle" }} />
+            Submit a Ticket
           </button>
           <button
             type="button"
             className={`support-tab-btn ${activeTab === "contact" ? "active" : ""}`}
             onClick={() => setActiveTab("contact")}
           >
-            <span>📞</span> Direct Contact
+            <PhoneIcon width={14} height={14} style={{ marginRight: 6, display: "inline-block", verticalAlign: "middle" }} />
+            Direct Contact
           </button>
         </div>
 
@@ -150,7 +164,9 @@ export default function SupportModal({ isOpen, onClose, user }) {
         {activeTab === "faqs" && (
           <div className="support-tab-body">
             <div className="support-search-wrap">
-              <span className="search-icon">🔍</span>
+              <span className="search-icon">
+                <SearchIcon width={14} height={14} />
+              </span>
               <input
                 type="text"
                 placeholder="Search common questions, guide topics..."
@@ -359,7 +375,9 @@ export default function SupportModal({ isOpen, onClose, user }) {
             <div className="contact-cards-grid">
               {/* Phone Card */}
               <div className="contact-channel-card">
-                <div className="channel-icon phone">📞</div>
+                <div className="channel-icon phone">
+                  <PhoneIcon width={20} height={20} />
+                </div>
                 <div className="channel-details">
                   <h4>Phone Support</h4>
                   <p>Speak directly with an administrator or technician</p>
@@ -376,7 +394,9 @@ export default function SupportModal({ isOpen, onClose, user }) {
 
               {/* Email Card */}
               <div className="contact-channel-card">
-                <div className="channel-icon email">✉️</div>
+                <div className="channel-icon email">
+                  <MailIcon width={20} height={20} />
+                </div>
                 <div className="channel-details">
                   <h4>Email Support</h4>
                   <p>Send detailed queries and logs to our support desk</p>
@@ -393,7 +413,9 @@ export default function SupportModal({ isOpen, onClose, user }) {
 
               {/* Live Hours Card */}
               <div className="contact-channel-card">
-                <div className="channel-icon office">🏢</div>
+                <div className="channel-icon office">
+                  <BuildingIcon width={20} height={20} />
+                </div>
                 <div className="channel-details">
                   <h4>System Administration</h4>
                   <p>EMS Operations & Corporate Infrastructure</p>
@@ -413,7 +435,7 @@ export default function SupportModal({ isOpen, onClose, user }) {
             </div>
 
             <div className="support-service-note">
-              <span>⚡</span>
+              <InfoIcon width={18} height={18} style={{ flexShrink: 0, marginTop: 2 }} />
               <div>
                 <strong>Need immediate critical resolution?</strong>
                 <p>Call our hotline above or submit a High priority ticket for swift handling.</p>
@@ -424,8 +446,9 @@ export default function SupportModal({ isOpen, onClose, user }) {
 
         {/* FOOTER */}
         <div className="support-modal-footer">
-          <div className="support-footer-note">
-            <span>🛡️</span> 24/7 Dedicated Support Assistance
+          <div className="support-footer-note" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <ShieldIcon width={14} height={14} />
+            <span>24/7 Dedicated Support Assistance</span>
           </div>
           <button type="button" className="support-close-action" onClick={onClose}>
             Close
